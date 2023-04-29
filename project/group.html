@@ -20,15 +20,16 @@
         <div class="logo">
             <h1>CineLit</h1>
         </div>
-        <form class="search_bar">
+        <form class="search_bar" id="search_form">
             <i class="fa fa-search search-icon"></i>
             <input type="search" name="search" id="search" placeholder="Search...">
         </form>
         <div class="links">
             <a href="index.html">Home</a>
-            <a href="">Featured</a>
-            <a href="">Trending</a>
-            <a href="">For You</a>
+            <a href="featured.html">Featured</a>
+            <a href="trending.html">Trending</a>
+            <a href="for_you.html">For You</a>
+            <a href="groups.html">Groups</a>
             <a href="profile.html"><i class="fa fa-user"></i></a>
         </div>
     </nav>
@@ -123,29 +124,28 @@
         <div class="chat-container">
             <ul class="chat">
                 <li class="message left">
-                    <img class="logo" src="assets/images/user-profile.png" alt="">
+                    <img class="profile_logo" src="assets/images/user-profile.png" alt="">
                     <p>Message from one person</p>
                 </li>
                 <li class="message right">
-                    <img class="logo" src="assets/images/user-profile.png" alt="">
+                    <img class="profile_logo" src="assets/images/user-profile.png" alt="">
                     <p>reply form sesond person to one person.</p>
                 </li>
                 <li class="message left">
-                    <img class="logo" src="assets/images/user-profile.png" alt="">
+                    <img class="profile_logo" src="assets/images/user-profile.png" alt="">
                     <p>hey there</p>
                 </li>
                 <li class="message right">
-                    <img class="logo" src="assets/images/user-profile.png" alt="">
+                    <img class="profile_logo" src="assets/images/user-profile.png" alt="">
                     <p>a short review of a movie avangers end game from third person</p>
                 </li>
                 <li class="message left">
-                    <img class="logo" src="assets/images/user-profile.png" alt="">
+                    <img class="profile_logo" src="assets/images/user-profile.png" alt="">
                     <p>agree</p>
                 </li>
             </ul>
-            <input type="text" class="text_input" placeholder="Message..."/>
+            <input type="text" class="text_input" placeholder="Message..." />
         </div>
-
 
     </div>
 
@@ -159,6 +159,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
         integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function() {
+            if(localStorage.getItem("token")==null){
+                window.location.href = "login.html"
+            }
+            else{
+                var token = localStorage.getItem("token");
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/verify",
+                    dataType: "json",
+                    data: {token: token},
+                    success: function (response) {
+                        if(!response.access){
+                            window.location.href = "login.html"
+                        }
+                        console.log(response);
+                    },
+                    error: function(response) {
+                        alert("error")
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

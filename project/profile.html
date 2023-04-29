@@ -20,15 +20,16 @@
         <div class="logo">
             <h1>CineLit</h1>
         </div>
-        <form class="search_bar">
+        <form class="search_bar" id="search_form">
             <i class="fa fa-search search-icon"></i>
             <input type="search" name="search" id="search" placeholder="Search...">
         </form>
         <div class="links">
             <a href="index.html">Home</a>
-            <a href="">Featured</a>
-            <a href="">Trending</a>
-            <a href="">For You</a>
+            <a href="featured.html">Featured</a>
+            <a href="trending.html">Trending</a>
+            <a href="for_you.html">For You</a>
+            <a href="groups.html">Groups</a>
             <a href="profile.html"><i class="fa fa-user"></i></a>
         </div>
     </nav>
@@ -41,12 +42,11 @@
                 </div>
                 <div class="col-info">
                     <div class="sub-col">
-                        <input type="text" placeholder="Yonas" disabled>
-                        <input type="text" placeholder="yonas@email.com" disabled>
+                        <input type="text" id="username" disabled>
+                        <input type="text" id="email" disabled>
                     </div>
                     <div class="sub-col">
-                        <input type="text" placeholder="Tsegaye" disabled>
-                        <input type="text" placeholder="USA" disabled>
+                        <input type="text" id="bio" disabled>
                     </div>
                     <div class="sub-col-buttons">
                         <button class="btn">100 Followers</button>
@@ -410,6 +410,50 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
         integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $(document).ready(function() {
+            if(localStorage.getItem("token")==null){
+                window.location.href = "login.html"
+            }
+            else{
+                var token = localStorage.getItem("token");
+                var user_id = '';
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/verify",
+                    dataType: "json",
+                    data: {token: token},
+                    success: function (response) {
+                        if(!response.access){
+                            window.location.href = "login.html"
+                        }
+                        var user_data = response.data;
+                        user_id = user_data.user_id
+                        $("#username").val(user_data.username);
+                        $("#email").val(user_data.email);
+                        $("#bio").val(user_data.bio);
+                    },
+                    error: function(response) {
+                        alert("error")
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/get_followers",
+                    dataType: "json",
+                    data: {user_id: user_id},
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function(response) {
+                        alert("error")
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

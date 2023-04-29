@@ -20,15 +20,16 @@
         <div class="logo">
             <h1>CineLit</h1>
         </div>
-        <form class="search_bar">
+        <form class="search_bar" id="search_form">
             <i class="fa fa-search search-icon"></i>
             <input type="search" name="search" id="search" placeholder="Search...">
         </form>
         <div class="links">
             <a href="index.html">Home</a>
-            <a href="">Featured</a>
-            <a href="">Trending</a>
-            <a href="">For You</a>
+            <a href="featured.html">Featured</a>
+            <a href="trending.html">Trending</a>
+            <a href="for_you.html">For You</a>
+            <a href="groups.html">Groups</a>
             <a href="profile.html"><i class="fa fa-user"></i></a>
         </div>
     </nav>
@@ -38,80 +39,7 @@
             <div class="row-top" style="justify-content: center;">
                 <h2 style="margin-bottom: 20px;">Search Result</h2>
             </div>
-            <section class="reviews">
-                <div class="result">
-                    <div class="res-col-img">
-                        <img src="assets/images/movie1.jpg" alt="Movie" />
-                    </div>
-                    <div class="col-desc">
-                        <div class="res-title">
-                            <h1>Avangers Endgame</h1>
-                        </div>
-                        <div class="res-author">
-                            <b>Author: </b>John Doe 
-                            </div>
-                        <div class="res-description">
-                            <b>Description: </b><br>
-                            After Thanos, an intergalactic warlord, disintegrates half of the universe, the Avengers must
-                            reunite and assemble again to reinvigorate their trounced allies and restore balance.
-                        </div>
-                    </div>
-                </div>
-                <div class="result">
-                    <div class="res-col-img">
-                        <img src="assets/images/movie2.jpg" alt="Movie" />
-                    </div>
-                    <div class="col-desc">
-                        <div class="res-title">
-                            <h1>John Wick</h1>
-                        </div>
-                        <div class="res-author">
-                            <b>Author: </b>John Doe 
-                            </div>
-                        <div class="res-description">
-                            <b>Description: </b><br>
-                            After Thanos, an intergalactic warlord, disintegrates half of the universe, the Avengers must
-                            reunite and assemble again to reinvigorate their trounced allies and restore balance.
-                        </div>
-                    </div>
-                </div>
-                <div class="result">
-                    <div class="res-col-img">
-                        <img src="assets/images/movie3.jpg" alt="Movie" />
-                    </div>
-                    <div class="col-desc">
-                        <div class="res-title">
-                            <h1>Harry Potter</h1>
-                        </div>
-                        <div class="res-author">
-                            <b>Author: </b>John Doe 
-                            </div>
-                        <div class="res-description">
-                            <b>Description: </b><br>
-                            After Thanos, an intergalactic warlord, disintegrates half of the universe, the Avengers must
-                            reunite and assemble again to reinvigorate their trounced allies and restore balance.
-                        </div>
-                    </div>
-                </div>
-                <div class="result">
-                    <div class="res-col-img">
-                        <img src="assets/images/movie4.jpg" alt="Movie" />
-                    </div>
-                    <div class="col-desc">
-                        <div class="res-title">
-                            <h1>Thor</h1>
-                        </div>
-                        <div class="res-author">
-                            <b>Author: </b>John Doe 
-                            </div>
-                        <div class="res-description">
-                            <b>Description: </b><br>
-                            After Thanos, an intergalactic warlord, disintegrates half of the universe, the Avengers must
-                            reunite and assemble again to reinvigorate their trounced allies and restore balance.
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <section class="reviews" id="results"></section>
         </div>
     </div>
 
@@ -125,6 +53,99 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
         integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $(document).ready(function () {
+            if (localStorage.getItem("token") == null) {
+                window.location.href = "login.html"
+            }
+            else {
+                var token = localStorage.getItem("token");
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/verify",
+                    dataType: "json",
+                    data: { token: token },
+                    success: function (response) {
+                        if (!response.access) {
+                            window.location.href = "login.html"
+                        }
+                    },
+                    error: function (response) {
+                        alert("Unauthorized user")
+                    }
+                });
+
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                const search_query = urlParams.get('q');
+
+                $("#search").val(search_query);
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/search_movies",
+                    dataType: "json",
+                    data: { search_query: search_query },
+                    success: function (response) {
+                        var result_elem = $("#results");
+                        res = response.result;
+                        if (res == "Result not found") {
+                            result_elem.html("<h3>No results found</h3>");
+                        }
+                        else {
+
+                            $.each(res, function (index, value) {
+                                var row = '<div class="result"><div class="res-col-img"><img src="assets/images/movie1.jpg" alt="Movie" /></div><div class="col-desc"><div class="res-title"><h1>' +
+                                    value.title + '</h1></div><div class="res-author"><b>Author: </b>' + value.director + '</div><div class="res-author"><b>Genre: </b>' + value.genre +
+                                    '</div><div class="res-author"><b>Release Date: </b>' + value.release_date + '</div>';
+                                    result_elem.append(row)
+                            });
+                            console.log(response);
+                        }
+                    },
+                    error: function (response) {
+                        var result_elem = $("#results");
+                        res = response.responseJSON.result;
+                        if (res == "Result not found") {
+                            result_elem.html("<h3>No results found</h3>");
+                        }
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/search_books",
+                    dataType: "json",
+                    data: { search_query: search_query },
+                    success: function (response) {
+                        var result_elem = $("#results");
+                        res = response.result;
+                        if (res == "Result not found") {
+                            console.log("no books");
+                        }
+                        else {
+
+                            $.each(res, function (index, value) {
+                                var row = '<div class="result"><div class="res-col-img"><img src="assets/images/movie1.jpg" alt="Movie" /></div><div class="col-desc"><div class="res-title"><h1>' +
+                                    value.title + '</h1></div><div class="res-author"><b>Author: </b>' + value.director + '</div><div class="res-author"><b>Genre: </b>' + value.genre +
+                                    '</div><div class="res-author"><b>Release Date: </b>' + value.release_date + '</div>';
+                                    result_elem.append(row)
+                            });
+                            console.log(response);
+                        }
+                    },
+                    error: function (response) {
+                        var result_elem = $("#results");
+                        res = response.responseJSON.result;
+                        if (res == "Result not found") {
+                            console.log("no books");
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
