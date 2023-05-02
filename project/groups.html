@@ -31,6 +31,7 @@
             <a href="for_you.html">For You</a>
             <a href="groups.html">Groups</a>
             <a href="profile.html"><i class="fa fa-user"></i></a>
+            <a onclick="logout()"><i class="fa fa-power-off"></i></a>
         </div>
     </nav>
     <div class="container">
@@ -38,146 +39,9 @@
         <div class="row">
             <div class="row-top">
                 <h2 style="margin-bottom: 20px;">Groups</h2>
+                <a href="create_group.html">Create Group</a>
             </div>
-            <section class="reviews">
-                <div class="result">
-                    <div class="res-col-img">
-                        <img class="group-img" src="assets/images/group-profile.jpg" alt="">
-                    </div>
-                    <div class="col-desc">
-                        <div class="row-top">
-                            <div>
-                                <div class="res-title">
-                                    <h1>Group Name</h1>
-                                </div>
-                                <div class="res-author">
-                                    @group
-                                </div>
-                            </div>
-                            <div style="display: flex; flex-direction: column;">
-                                <b>1.2K Memebrs</b>
-                                <form action="group.html">
-                                    <button class="btn">Join</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="result">
-                    <div class="res-col-img">
-                        <img class="group-img" src="assets/images/group-profile.jpg" alt="">
-                    </div>
-                    <div class="col-desc">
-                        <div class="row-top">
-                            <div>
-                                <div class="res-title">
-                                    <h1>Group Name</h1>
-                                </div>
-                                <div class="res-author">
-                                    @group
-                                </div>
-                            </div>
-                            <div style="display: flex; flex-direction: column;">
-                                <b>1.2K Memebrs</b>
-                                <form action="group.html">
-                                    <button class="btn">Join</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="result">
-                    <div class="res-col-img">
-                        <img class="group-img" src="assets/images/group-profile.jpg" alt="">
-                    </div>
-                    <div class="col-desc">
-                        <div class="row-top">
-                            <div>
-                                <div class="res-title">
-                                    <h1>Group Name</h1>
-                                </div>
-                                <div class="res-author">
-                                    @group
-                                </div>
-                            </div>
-                            <div style="display: flex; flex-direction: column;">
-                                <b>1.2K Memebrs</b>
-                                <form action="group.html">
-                                    <button class="btn">Join</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="result">
-                    <div class="res-col-img">
-                        <img class="group-img" src="assets/images/group-profile.jpg" alt="">
-                    </div>
-                    <div class="col-desc">
-                        <div class="row-top">
-                            <div>
-                                <div class="res-title">
-                                    <h1>Group Name</h1>
-                                </div>
-                                <div class="res-author">
-                                    @group
-                                </div>
-                            </div>
-                            <div style="display: flex; flex-direction: column;">
-                                <b>1.2K Memebrs</b>
-                                <form action="group.html">
-                                    <button class="btn">Join</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="result">
-                    <div class="res-col-img">
-                        <img class="group-img" src="assets/images/group-profile.jpg" alt="">
-                    </div>
-                    <div class="col-desc">
-                        <div class="row-top">
-                            <div>
-                                <div class="res-title">
-                                    <h1>Group Name</h1>
-                                </div>
-                                <div class="res-author">
-                                    @group
-                                </div>
-                            </div>
-                            <div style="display: flex; flex-direction: column;">
-                                <b>1.2K Memebrs</b>
-                                <form action="group.html">
-                                    <button class="btn">Join</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="result">
-                    <div class="res-col-img">
-                        <img class="group-img" src="assets/images/group-profile.jpg" alt="">
-                    </div>
-                    <div class="col-desc">
-                        <div class="row-top">
-                            <div>
-                                <div class="res-title">
-                                    <h1>Group Name</h1>
-                                </div>
-                                <div class="res-author">
-                                    @group
-                                </div>
-                            </div>
-                            <div style="display: flex; flex-direction: column;">
-                                <b>1.2K Memebrs</b>
-                                <form action="group.html">
-                                    <button class="btn">Join</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <section class="reviews" id="results">
                 <div class="result">
                     <div class="res-col-img">
                         <img class="group-img" src="assets/images/group-profile.jpg" alt="">
@@ -235,11 +99,47 @@
                         console.log(response);
                     },
                     error: function(response) {
-                        alert("error")
+                        console.log("error")
+                    }
+                });
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8000/get_groups",
+                    success: function (response) {
+                        var result_elem = $("#results");
+                        res = response.result;
+                        if (res == "Result not found") {
+                            result_elem.html("<h3>No results found</h3>");
+                        }
+                        else {
+
+                            $.each(res, function (index, value) {
+                                var row = '<div class="result"><div class="res-col-img"><img class="group-img" src="http://localhost:8000/images/' + value.image + '" alt="Group" /></div><div class="col-desc"><div class="row-top"><div><div class="res-title"><h1>' +
+                                    value.group_name + '</h1></div><div class="res-author">@' + value.group_id + '</div></div><div style="display: flex; flex-direction: column;"><b>' + value.group_members +
+                                    '</b><form action="group.html?group=' + value.image + '?name=' + value.group_name + '?id=' + value.group_id + '?members=' + value.group_members + '"><button class="btn">Join</button></form></div></div></div></div>';
+                                    result_elem.append(row);
+                            });
+                            console.log(response);
+                        }
+
+                    },
+                    error: function(response) {
+                        console.log("error");
                     }
                 });
             }
         });
+
+        function logout(){
+            localStorage.removeItem("token");
+            if(localStorage.getItem("token")==""){
+                window.location.href = "login.html"
+            }
+            else{
+                console.log("Logout error");
+            }
+        }
     </script>
 </body>
 

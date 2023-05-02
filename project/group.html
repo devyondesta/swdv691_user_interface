@@ -31,6 +31,7 @@
             <a href="for_you.html">For You</a>
             <a href="groups.html">Groups</a>
             <a href="profile.html"><i class="fa fa-user"></i></a>
+            <a onclick="logout()"><i class="fa fa-power-off"></i></a>
         </div>
     </nav>
     <div class="container">
@@ -178,11 +179,21 @@
                         console.log(response);
                     },
                     error: function(response) {
-                        alert("error")
+                        console.log("error")
                     }
                 });
             }
         });
+
+        function logout(){
+            localStorage.removeItem("token");
+            if(localStorage.getItem("token")==""){
+                window.location.href = "login.html"
+            }
+            else{
+                console.log("Logout error");
+            }
+        }
     </script>
 </body>
 

@@ -31,14 +31,15 @@
             <a href="for_you.html">For You</a>
             <a href="groups.html">Groups</a>
             <a href="profile.html"><i class="fa fa-user"></i></a>
+            <a onclick="logout()"><i class="fa fa-power-off"></i></a>
         </div>
     </nav>
     <div class="container">
         <div class="row">
             <h2>User Profile</h2>
-            <div class="profile-row">
-                <div class="col-img">
-                    <img src="assets/images/movie1.jpg" alt="Movie" />
+            <div class="profile-row" id="item">
+                <!-- <div class="col-img">
+                    <img src="assets/images/avangers.jpg" alt="Movie" />
                 </div>
                 <div class="col-desc">
                     <div class="title">
@@ -55,7 +56,7 @@
                         After Thanos, an intergalactic warlord, disintegrates half of the universe, the Avengers must
                         reunite and assemble again to reinvigorate their trounced allies and restore balance.
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -137,29 +138,81 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
-        $(document).ready(function() {
-            if(localStorage.getItem("token")==null){
+        $(document).ready(function () {
+            if (localStorage.getItem("token") == null) {
                 window.location.href = "login.html"
             }
-            else{
+            else {
                 var token = localStorage.getItem("token");
                 $.ajax({
                     type: "POST",
                     url: "http://localhost:8000/verify",
                     dataType: "json",
-                    data: {token: token},
+                    data: { token: token },
                     success: function (response) {
-                        if(!response.access){
+                        if (!response.access) {
                             window.location.href = "login.html"
                         }
                         console.log(response);
                     },
-                    error: function(response) {
+                    error: function (response) {
                         alert("error")
                     }
                 });
             }
         });
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const movie_query = urlParams.get('movie');
+        var row = ''
+        var row1 = '<div class="col-img"><img src="assets/images/';
+        var row2 = '" alt="Movie" /></div><div class="col-desc"><div class="title"><h1>';
+        var row3 = '</h1></div><div class="author"><b>Author: </b>';
+        var row4 = '</div><div class="release"><b>Releasing Year: </b>';
+        var row5 = '</div><div class="description"><b>Genre: </b>';
+        var row6 = '</div></div>';
+        if(movie_query=="avangers"){
+            var row = row1 + 'avangers.jpg' + row2 + 'Avangers Endgame' + row3 + 'John Doe' + row4 + '2020' + row5 + 'SciFi' + row6;
+        }
+        if(movie_query=="john_wick"){
+            var row = row1 + '' + row2 + 'John Wick' + row3 + 'John Doe' + row4 + '2023' + row5 + 'Action' + row6;
+        }
+        if(movie_query=="harry_potter"){
+            var row = row1 + 'john-wick.jpg' + row2 + 'Harry Potter' + row3 + 'John Doe' + row4 + '2012' + row5 + 'SciFi' + row6;
+        }
+        if(movie_query=="thor"){
+            var row = row1 + 'thor.jpg' + row2 + 'Thor' + row3 + 'John Doe' + row4 + '2019' + row5 + 'Thriller' + row6;
+        }
+        if(movie_query=="simulant"){
+            var row = row1 + 'simulant.jpg' + row2 + 'Simulant' + row3 + 'John Doe' + row4 + '2017' + row5 + 'Drama' + row6;
+        }
+        if(movie_query=="sin_eater"){
+            var row = row1 + 'sin-eater.jpg' + row2 + 'Sin Eater' + row3 + 'John Doe' + row4 + '2005' + row5 + 'Nooval' + row6;
+        }
+        if(movie_query=="illness_lesson"){
+            var row = row1 + 'illness.jpg' + row2 + 'Illness Lesson' + row3 + 'John Doe' + row4 + '2022' + row5 + 'Noval' + row6;
+        }
+        if(movie_query=="million_to_one"){
+            var row = row1 + 'million-to-one.jpg' + row2 + 'A Million To One' + row3 + 'John Doe' + row4 + '2021' + row5 + 'Noval' + row6;
+        }
+        if(movie_query=="lunar_storm"){
+            var row = row1 + 'lunar-storm.jpeg' + row2 + 'Lunar Storm' + row3 + 'John Doe' + row4 + '2019' + row5 + 'Noval' + row6;
+        }
+        var item = $("#item");
+        item.append(row)
+
+        function logout() {
+            localStorage.removeItem("token");
+            if (localStorage.getItem("token") == "") {
+                window.location.href = "login.html"
+            }
+            else {
+                console.log("Logout error");
+            }
+        }
+
+        
     </script>
 </body>
 

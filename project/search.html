@@ -31,6 +31,7 @@
             <a href="for_you.html">For You</a>
             <a href="groups.html">Groups</a>
             <a href="profile.html"><i class="fa fa-user"></i></a>
+            <a onclick="logout()"><i class="fa fa-power-off"></i></a>
         </div>
     </nav>
     <div class="container">
@@ -96,7 +97,7 @@
                         else {
 
                             $.each(res, function (index, value) {
-                                var row = '<div class="result"><div class="res-col-img"><img src="assets/images/movie1.jpg" alt="Movie" /></div><div class="col-desc"><div class="res-title"><h1>' +
+                                var row = '<div class="result"><div class="res-col-img"><img src="http://localhost:8000/images/' + value.cover_image + '" alt="Movie" /></div><div class="col-desc"><div class="res-title"><h1>' +
                                     value.title + '</h1></div><div class="res-author"><b>Author: </b>' + value.director + '</div><div class="res-author"><b>Genre: </b>' + value.genre +
                                     '</div><div class="res-author"><b>Release Date: </b>' + value.release_date + '</div>';
                                     result_elem.append(row)
@@ -125,9 +126,8 @@
                             console.log("no books");
                         }
                         else {
-
                             $.each(res, function (index, value) {
-                                var row = '<div class="result"><div class="res-col-img"><img src="assets/images/movie1.jpg" alt="Movie" /></div><div class="col-desc"><div class="res-title"><h1>' +
+                                var row = '<div class="result"><div class="res-col-img"><img src="http://localhost:8000/images/' + value.cover_image + '" alt="Movie" /></div><div class="col-desc"><div class="res-title"><h1>' +
                                     value.title + '</h1></div><div class="res-author"><b>Author: </b>' + value.director + '</div><div class="res-author"><b>Genre: </b>' + value.genre +
                                     '</div><div class="res-author"><b>Release Date: </b>' + value.release_date + '</div>';
                                     result_elem.append(row)
@@ -145,6 +145,16 @@
                 });
             }
         });
+
+        function logout(){
+            localStorage.removeItem("token");
+            if(localStorage.getItem("token")==""){
+                window.location.href = "login.html"
+            }
+            else{
+                console.log("Logout error");
+            }
+        }
     </script>
 </body>
 

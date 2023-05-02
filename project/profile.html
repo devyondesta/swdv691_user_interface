@@ -31,14 +31,15 @@
             <a href="for_you.html">For You</a>
             <a href="groups.html">Groups</a>
             <a href="profile.html"><i class="fa fa-user"></i></a>
+            <a onclick="logout()"><i class="fa fa-power-off"></i></a>
         </div>
     </nav>
     <div class="container">
         <div class="row">
             <h2>User Profile</h2>
             <div class="profile-row">
-                <div class="col-img">
-                    <img src="assets/images/user-profile.png" alt="User Profile" />
+                <div class="col-img" id="profile_image">
+                    <!-- <img src="assets/images/user-profile.png" alt="User Profile" /> -->
                 </div>
                 <div class="col-info">
                     <div class="sub-col">
@@ -49,9 +50,9 @@
                         <input type="text" id="bio" disabled>
                     </div>
                     <div class="sub-col-buttons">
-                        <button class="btn">100 Followers</button>
-                        <button class="btn">120 Following</button>
-                        <button class="btn">9 Groups</button>
+                        <button class="btn" id="followers"></button>
+                        <button class="btn" id="following"></button>
+                        <button class="btn" id="groups">9 Groups</button>
                     </div>
                 </div>
 
@@ -62,7 +63,6 @@
         <div class="row">
             <div class="row-top">
                 <h2 style="margin-bottom: 0;">Followers</h2>
-                <a href="">see more</a>
             </div>
             <section class="logo-carousel slider">
                 <div class="slide" style="width: 120px !important">
@@ -126,7 +126,6 @@
         <div class="row">
             <div class="row-top">
                 <h2 style="margin-bottom: 0;">Groups</h2>
-                <a href="">see more</a>
             </div>
             <section class="logo-carousel slider">
                 <div class="slide" style="width: 120px !important">
@@ -163,181 +162,6 @@
                     <img class="group-img" src="assets/images/group-profile.jpg" alt="">
                     <div class="username">
                         @group
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Favourites -->
-        <div class="row">
-            <div class="row-top">
-                <h2 style="margin-bottom: 0;">Favourites</h2>
-                <a href="">see more</a>
-            </div>
-            <section class="logo-carousel slider">
-                <div class="slide">
-                    <img class="slider-img" src="assets/images/movie1.jpg" alt="">
-                    <div class="slider-item-info">
-                        <div class="movie-title">
-                            <h3>Avangers Endgame</h3>
-                        </div>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img class="slider-img" src="assets/images/movie2.jpg" alt="">
-                    <div class="slider-item-info">
-                        <div class="movie-title">
-                            <h3>John Wick</h3>
-                        </div>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img class="slider-img" src="assets/images/movie3.jpg" alt="">
-                    <div class="slider-item-info">
-                        <div class="movie-title">
-                            <h3>Harry Potter</h3>
-                        </div>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img class="slider-img" src="assets/images/movie4.jpg" alt="">
-                    <div class="slider-item-info">
-                        <div class="movie-title">
-                            <h3>Thor</h3>
-                        </div>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img class="slider-img" src="assets/images/movie5.jpg" alt="">
-                    <div class="slider-item-info">
-                        <div class="movie-title">
-                            <h3>Simulant</h3>
-                        </div>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img class="slider-img" src="assets/images/book1.jpg" alt="">
-                    <div class="slider-item-info">
-                        <div class="movie-title">
-                            <h3>Sin Eater</h3>
-                        </div>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img class="slider-img" src="assets/images/book2.jpg" alt="">
-                    <div class="slider-item-info">
-                        <div class="movie-title">
-                            <h3>Illness Lesson</h3>
-                        </div>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img class="slider-img" src="assets/images/book3.jpg" alt="">
-                    <div class="slider-item-info">
-                        <div class="movie-title">
-                            <h3>A million to one</h3>
-                        </div>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img class="slider-img" src="assets/images/book4.jpeg" alt="">
-                    <div class="slider-item-info">
-                        <div class="movie-title">
-                            <h3>Lunar Storm</h3>
-                        </div>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img class="slider-img" src="assets/images/movie1.jpg" alt="">
-                    <div class="slider-item-info">
-                        <div class="movie-title">
-                            <h3>Avangers Endgame</h3>
-                        </div>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img class="slider-img" src="assets/images/book1.jpg" alt="">
-                    <div class="slider-item-info">
-                        <div class="movie-title">
-                            <h3>Sin Eater</h3>
-                        </div>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -429,13 +253,14 @@
                             window.location.href = "login.html"
                         }
                         var user_data = response.data;
-                        user_id = user_data.user_id
+                        localStorage.setItem("user_id", user_data.user_id)
                         $("#username").val(user_data.username);
                         $("#email").val(user_data.email);
                         $("#bio").val(user_data.bio);
+                        $("#profile_image").append('<img src="http://localhost:8000/images/' + user_data.profile_image + '" alt="User Profile" />')
                     },
                     error: function(response) {
-                        alert("error")
+                        console.log("error");
                     }
                 });
 
@@ -443,16 +268,52 @@
                     type: "POST",
                     url: "http://localhost:8000/get_followers",
                     dataType: "json",
-                    data: {user_id: user_id},
+                    data: {user_id: localStorage.getItem("user_id")},
+                    success: function (response) {
+                        $("#followers").html(response.counts + " Followers");
+                    },
+                    error: function(response) {
+                        console.log("error");
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/get_following",
+                    dataType: "json",
+                    data: {user_id: localStorage.getItem("user_id")},
+                    success: function (response) {
+                        $("#following").html(response.counts + " Following");
+                    },
+                    error: function(response) {
+                        console.log("error");
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/get_joined_groups",
+                    dataType: "json",
+                    data: {user_id: localStorage.getItem("user_id")},
                     success: function (response) {
                         console.log(response);
                     },
                     error: function(response) {
-                        alert("error")
+                        console.log("error");
                     }
                 });
             }
         });
+
+        function logout(){
+            localStorage.removeItem("token");
+            if(localStorage.getItem("token")==""){
+                window.location.href = "login.html"
+            }
+            else{
+                console.log("Logout error");
+            }
+        }
     </script>
 </body>
 

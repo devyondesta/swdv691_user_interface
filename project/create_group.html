@@ -31,37 +31,29 @@
             <a href="for_you.html">For You</a>
             <a href="groups.html">Groups</a>
             <a href="profile.html"><i class="fa fa-user"></i></a>
+            <a onclick="logout()"><i class="fa fa-power-off"></i></a>
         </div>
     </nav>
     <div class="container">
         <!-- Login -->
         <div class="row">
             <div class="row-top" style="justify-content: center;">
-                <h2 style="margin-bottom: 20px;">Signup</h2>
+                <h2 style="margin-bottom: 20px;">Create Group</h2>
             </div>
-            <form action="" class="input_form" id="signup_form" enctype="multipart/form-data">
+            <form action="" class="input_form" id="create_group_form" enctype="multipart/form-data">
                 <div class="input_group">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" id="username">
+                    <label for="group_id">Group ID</label>
+                    <input type="text" name="group_id" id="group_id">
                 </div>
                 <div class="input_group">
-                    <label for="email">Email Address</label>
-                    <input type="email" name="email" id="email">
+                    <label for="group_name">Group Name</label>
+                    <input type="text" name="group_name" id="group_name">
                 </div>
                 <div class="input_group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password">
+                    <label for="image">Profile</label>
+                    <input type="file" name="image" id="image">
                 </div>
-                <div class="input_group">
-                    <label for="profile">Profile</label>
-                    <input type="file" name="profile" id="profile">
-                </div>
-                <div class="input_group">
-                    <label for="bio">Bio</label>
-                    <textarea name="bio" id="bio"></textarea>
-                </div>
-                <button class="btn" type="submit" name="signup" id="signup">Signup</button>
-                Already have an account? <a href="signup.html">Login here</a>
+                <button class="btn" type="submit" name="create" id="create">Create</button>
             </form>
         </div>
 
@@ -79,28 +71,36 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
-        $("#signup_form").submit(function (event) {
+        $("#create_group_form").submit(function (event) {
             event.preventDefault();
 
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-                    window.location.href = "login.html";
+                    window.location.href = "groups.html";
                 }
                 if(this.status==404){
-                    alert("Email already exist");
+                    alert("Group ID already exist");
                 }
             };
-            xhttp.open("POST", "http://localhost:8000/register")
+            xhttp.open("POST", "http://localhost:8000/create_group")
             var formData = new FormData()
-            formData.append('username', document.getElementById('username').value)
-            formData.append('email', document.getElementById('email').value)
-            formData.append('password', document.getElementById('password').value)
-            formData.append('profile', document.getElementById('profile').files[0])
-            formData.append('bio', document.getElementById('bio').value)
+            formData.append('group_id', document.getElementById('group_id').value)
+            formData.append('group_name', document.getElementById('group_name').value)
+            formData.append('image', document.getElementById('image').files[0])
 
             xhttp.send(formData)
         });
+
+        function logout(){
+            localStorage.removeItem("token");
+            if(localStorage.getItem("token")==""){
+                window.location.href = "login.html"
+            }
+            else{
+                console.log("Logout error");
+            }
+        }
     </script>
 </body>
 
