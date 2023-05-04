@@ -72,7 +72,7 @@
             var form_data = JSON.parse(JSON.stringify($(this).serializeArray()));
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8000/login",
+                url: "https://cinelit-backend.onrender.com/login",
                 dataType: "json",
                 data: form_data,
                 success: function (response) {

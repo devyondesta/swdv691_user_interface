@@ -89,7 +89,7 @@
                 var token = localStorage.getItem("token");
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8000/verify",
+                    url: "https://cinelit-backend.onrender.com/verify",
                     dataType: "json",
                     data: {token: token},
                     success: function (response) {
@@ -105,7 +105,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "http://localhost:8000/get_groups",
+                    url: "https://cinelit-backend.onrender.com/get_groups",
                     success: function (response) {
                         var result_elem = $("#results");
                         res = response.result;
@@ -115,7 +115,7 @@
                         else {
 
                             $.each(res, function (index, value) {
-                                var row = '<div class="result"><div class="res-col-img"><img class="group-img" src="http://localhost:8000/images/' + value.image + '" alt="Group" /></div><div class="col-desc"><div class="row-top"><div><div class="res-title"><h1>' +
+                                var row = '<div class="result"><div class="res-col-img"><img class="group-img" src="https://cinelit-backend.onrender.com/images/' + value.image + '" alt="Group" /></div><div class="col-desc"><div class="row-top"><div><div class="res-title"><h1>' +
                                     value.group_name + '</h1></div><div class="res-author">@' + value.group_id + '</div></div><div style="display: flex; flex-direction: column;"><b>' + value.group_members +
                                     '</b><form action="group.html?group=' + value.image + '?name=' + value.group_name + '?id=' + value.group_id + '?members=' + value.group_members + '"><button class="btn">Join</button></form></div></div></div></div>';
                                     result_elem.append(row);

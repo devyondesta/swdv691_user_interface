@@ -83,7 +83,7 @@
                     alert("Group ID already exist");
                 }
             };
-            xhttp.open("POST", "http://localhost:8000/create_group")
+            xhttp.open("POST", "https://cinelit-backend.onrender.com/create_group")
             var formData = new FormData()
             formData.append('group_id', document.getElementById('group_id').value)
             formData.append('group_name', document.getElementById('group_name').value)

@@ -245,7 +245,7 @@
                 var user_id = '';
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8000/verify",
+                    url: "https://cinelit-backend.onrender.com/verify",
                     dataType: "json",
                     data: {token: token},
                     success: function (response) {
@@ -257,7 +257,7 @@
                         $("#username").val(user_data.username);
                         $("#email").val(user_data.email);
                         $("#bio").val(user_data.bio);
-                        $("#profile_image").append('<img src="http://localhost:8000/images/' + user_data.profile_image + '" alt="User Profile" />')
+                        $("#profile_image").append('<img src="https://cinelit-backend.onrender.com/images/' + user_data.profile_image + '" alt="User Profile" />')
                     },
                     error: function(response) {
                         console.log("error");
@@ -266,7 +266,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8000/get_followers",
+                    url: "https://cinelit-backend.onrender.com/get_followers",
                     dataType: "json",
                     data: {user_id: localStorage.getItem("user_id")},
                     success: function (response) {
@@ -279,7 +279,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8000/get_following",
+                    url: "https://cinelit-backend.onrender.com/get_following",
                     dataType: "json",
                     data: {user_id: localStorage.getItem("user_id")},
                     success: function (response) {
@@ -292,7 +292,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8000/get_joined_groups",
+                    url: "https://cinelit-backend.onrender.com/get_joined_groups",
                     dataType: "json",
                     data: {user_id: localStorage.getItem("user_id")},
                     success: function (response) {

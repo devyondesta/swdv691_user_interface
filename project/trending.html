@@ -231,7 +231,7 @@
                 var token = localStorage.getItem("token");
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8000/verify",
+                    url: "https://cinelit-backend.onrender.com/verify",
                     dataType: "json",
                     data: {token: token},
                     success: function (response) {

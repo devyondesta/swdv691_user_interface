@@ -64,7 +64,7 @@
                 var token = localStorage.getItem("token");
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8000/verify",
+                    url: "https://cinelit-backend.onrender.com/verify",
                     dataType: "json",
                     data: { token: token },
                     success: function (response) {
@@ -85,7 +85,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8000/search_movies",
+                    url: "https://cinelit-backend.onrender.com/search_movies",
                     dataType: "json",
                     data: { search_query: search_query },
                     success: function (response) {
@@ -97,7 +97,7 @@
                         else {
 
                             $.each(res, function (index, value) {
-                                var row = '<div class="result"><div class="res-col-img"><img src="http://localhost:8000/images/' + value.cover_image + '" alt="Movie" /></div><div class="col-desc"><div class="res-title"><h1>' +
+                                var row = '<div class="result"><div class="res-col-img"><img src="https://cinelit-backend.onrender.com/images/' + value.cover_image + '" alt="Movie" /></div><div class="col-desc"><div class="res-title"><h1>' +
                                     value.title + '</h1></div><div class="res-author"><b>Author: </b>' + value.director + '</div><div class="res-author"><b>Genre: </b>' + value.genre +
                                     '</div><div class="res-author"><b>Release Date: </b>' + value.release_date + '</div>';
                                     result_elem.append(row)
@@ -116,7 +116,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8000/search_books",
+                    url: "https://cinelit-backend.onrender.com/search_books",
                     dataType: "json",
                     data: { search_query: search_query },
                     success: function (response) {
@@ -127,7 +127,7 @@
                         }
                         else {
                             $.each(res, function (index, value) {
-                                var row = '<div class="result"><div class="res-col-img"><img src="http://localhost:8000/images/' + value.cover_image + '" alt="Movie" /></div><div class="col-desc"><div class="res-title"><h1>' +
+                                var row = '<div class="result"><div class="res-col-img"><img src="https://cinelit-backend.onrender.com/images/' + value.cover_image + '" alt="Movie" /></div><div class="col-desc"><div class="res-title"><h1>' +
                                     value.title + '</h1></div><div class="res-author"><b>Author: </b>' + value.director + '</div><div class="res-author"><b>Genre: </b>' + value.genre +
                                     '</div><div class="res-author"><b>Release Date: </b>' + value.release_date + '</div>';
                                     result_elem.append(row)
